@@ -19,21 +19,14 @@ const App = () => {
   const addContact = (contactName, contactEmail) => {
     const newId = Math.max(...contacts.map(el => el.id)) + 1;
 
-    if(contactName != "" && contactEmail != "")
-    {
-      const item = {
-        id: newId,
-        name: contactName,
-        email: contactEmail
-      };
-    
-      setContacts([...contacts, item]);
-      console.log(contacts);
-    }
-    else
-    {
-      console.log("empty");
-    }
+    const item = {
+      id: newId,
+      name: contactName,
+      email: contactEmail
+    };
+  
+    setContacts([...contacts, item]);
+    console.log(contacts);
   };
   
   return (
