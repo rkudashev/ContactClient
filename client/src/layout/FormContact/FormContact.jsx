@@ -7,7 +7,7 @@ const FormContact = (props) => {
   const [contactEmail, setContactEmail] = useState("");
 
   const submit = () => {
-    if(contactName != "" && contactEmail != "")
+    if(contactName !== "" && contactEmail !== "")
     {
       props.addContact(contactName, contactEmail);
       setContactName("");
