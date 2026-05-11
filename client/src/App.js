@@ -25,6 +25,7 @@ const App = () => {
       email: contactEmail
     };
   
+    axios.post(url, item);
     setContacts([...contacts, item]);
   };
 
