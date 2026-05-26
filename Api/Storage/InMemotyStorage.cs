@@ -3,10 +3,11 @@ using Api.ModelDto;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Storage;
-public class ContactStorage
+
+public class InMemoryStorage : IStorage
 {
     private List<Contact> contacts;
-    public ContactStorage()
+    public InMemoryStorage()
     {
         contacts = [];
     }

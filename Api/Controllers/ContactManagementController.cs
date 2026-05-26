@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace Api.Controllers;
 public class ContactManagementController : BaseController
 {
-    private readonly ContactStorage storage;
-    public ContactManagementController(ContactStorage storage)
+    private readonly IStorage storage;
+    public ContactManagementController(IStorage storage)
     {
         this.storage = storage;
     }
