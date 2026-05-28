@@ -7,7 +7,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 
 builder.Services.AddSingleton<DataContext>();
-builder.Services.AddSingleton<IStorage, InMemoryStorage>();
+builder.Services.AddSingleton<IStorage>(new SqLiteStorage("Data Source=contacts.db"));
 
 builder.Services.AddCors(opt => opt.AddPolicy("CorsPolicy", policy =>
 {
