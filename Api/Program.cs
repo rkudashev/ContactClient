@@ -7,13 +7,16 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 
 builder.Services.AddSingleton<DataContext>();
-builder.Services.AddSingleton<IStorage>(new SqLiteStorage("Data Source=contacts.db"));
+
+string connectionString = builder.Configuration.GetValue<string>("ConnectionStrings:SqliteConnection");
+builder.Services.AddSingleton<IStorage>(new SqLiteStorage(connectionString));
+
 
 builder.Services.AddCors(opt => opt.AddPolicy("CorsPolicy", policy =>
 {
     policy.AllowAnyMethod()
     .AllowAnyHeader()
-    .WithOrigins("http://localhost:3000");
+    .WithOrigins(builder.Configuration["Client"]);
 }));
 
 var app = builder.Build();
