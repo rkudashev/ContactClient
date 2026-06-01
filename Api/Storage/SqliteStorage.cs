@@ -62,7 +62,32 @@ public class SqLiteStorage : IStorage
 
     public Contact GetById(int id)
     {
-        throw new NotImplementedException();
+        var contact = Contact.Unknown;
+
+        using var connection = new SqliteConnection(connectionString);
+        connection.Open();
+
+        var command = connection.CreateCommand();
+
+        string sql = @"SELECT * FROM contacts WHERE id = $id";
+        command.CommandText = sql;
+        command.Parameters.AddWithValue("$id", id);
+
+        using var reader = command.ExecuteReader(); 
+
+        while(reader.Read())
+        {
+            contact = (
+                new Contact()
+                {
+                    Id = reader.GetInt32(0),
+                    Name = reader.GetString(1),
+                    Email = reader.GetString(2)
+                }
+            );
+        }
+
+        return contact;
     }
 
     public bool Remove(int id)
