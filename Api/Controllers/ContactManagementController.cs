@@ -13,13 +13,13 @@ public class ContactManagementController : BaseController
     }
 
     [HttpPost("contacts")]
-    public IActionResult Create([FromBody] Contact contact)
+    public IActionResult Create([FromBody] ContactDto contact)
     {
         var res = storage.Add(contact);
 
-        if(res)
+        if(res.Id != -1)
         {
-            return Created();
+            return Created(nameof(Create), res);
         }
 
         return Conflict();

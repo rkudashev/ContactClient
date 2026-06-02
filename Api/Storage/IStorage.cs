@@ -7,7 +7,7 @@ public interface IStorage
 {
     List<Contact> GetAll();
     Contact GetById(int id);
-    bool Add(Contact contact);
+    Contact Add(ContactDto contact);
     bool Remove(int id);
     bool Update(ContactDto contactDto, int id);
 }

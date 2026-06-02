@@ -14,7 +14,7 @@ public class SqLiteStorage : IStorage
         this.connectionString = connectionString;
     }
 
-    public bool Add(Contact contact)
+    public Contact Add(ContactDto contact)
     {
         using var connection = new SqliteConnection(connectionString);
         connection.Open();
@@ -23,13 +23,29 @@ public class SqLiteStorage : IStorage
 
         string sql = @"
             INSERT INTO contacts (name, email) 
-            VALUES ($name, $email)";
+            VALUES ($name, $email)
+            RETURNING * ";
 
         command.CommandText = sql;
         command.Parameters.AddWithValue("$name", contact.Name);
         command.Parameters.AddWithValue("$email", contact.Email);
 
-        return command.ExecuteNonQuery() > 0;
+        try
+        {
+            var reader = command.ExecuteReader();
+            reader.Read();
+
+            return new Contact()
+            {
+                Id = reader.GetInt32(0),
+                Name = reader.GetString(1),
+                Email = reader.GetString(2)
+            };
+        }
+        catch
+        {
+            return Contact.Unknown;
+        }
     }
 
     public List<Contact> GetAll()

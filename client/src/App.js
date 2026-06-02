@@ -17,16 +17,14 @@ const App = () => {
   }, []);
   
   const addContact = (contactName, contactEmail) => {
-    const newId = Math.max(0, ...contacts.map(el => el.id)) + 1;
-
     const item = {
-      id: newId,
       name: contactName,
       email: contactEmail
     };
   
-    axios.post(url, item);
-    setContacts([...contacts, item]);
+    axios.post(url, item).then(
+      res => setContacts([...contacts, res.data])
+    );
   };
 
   const deleteContact = (id) => {
