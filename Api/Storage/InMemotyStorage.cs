@@ -3,10 +3,11 @@ using Api.ModelDto;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Storage;
-public class ContactStorage
+
+public class InMemoryStorage : IStorage
 {
     private List<Contact> contacts;
-    public ContactStorage()
+    public InMemoryStorage()
     {
         contacts = [];
     }
@@ -29,18 +30,18 @@ public class ContactStorage
         return Contact.Unknown;
     }
 
-    public bool Add(Contact contact)
+    public Contact Add(ContactDto contact)
     {
-        foreach(var item in contacts)
-        {
-            if(item.Id == contact.Id)
-            {
-                return false;
-            }
-        }
+        var last = contacts.MaxBy(c => c.Id);
 
-        contacts.Add(contact);
-        return true;
+        contacts.Add(new Contact()
+        {
+            Id = last.Id + 1,
+            Name = contact.Name,
+            Email = contact.Email
+        }
+        );
+        return contacts.Last();
     }
 
     public bool Remove(int id)

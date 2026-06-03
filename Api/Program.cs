@@ -1,22 +1,12 @@
 using Api.Storage;
+using Api.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.AddControllers();
-
-builder.Services.AddSingleton<DataContext>();
-builder.Services.AddSingleton<ContactStorage>();
-
-builder.Services.AddCors(opt => opt.AddPolicy("CorsPolicy", policy =>
-{
-    policy.AllowAnyMethod()
-    .AllowAnyHeader()
-    .WithOrigins("http://localhost:3000");
-}));
+builder.Services.AddServiceCollection(builder.Configuration);
 
 var app = builder.Build();
+app.Services.AddCustomService(builder.Configuration);
 
 app.UseSwagger();
 app.UseSwaggerUI();

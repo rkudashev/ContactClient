@@ -6,20 +6,20 @@ using Microsoft.AspNetCore.Mvc;
 namespace Api.Controllers;
 public class ContactManagementController : BaseController
 {
-    private readonly ContactStorage storage;
-    public ContactManagementController(ContactStorage storage)
+    private readonly IStorage storage;
+    public ContactManagementController(IStorage storage)
     {
         this.storage = storage;
     }
 
     [HttpPost("contacts")]
-    public IActionResult Create([FromBody] Contact contact)
+    public IActionResult Create([FromBody] ContactDto contact)
     {
         var res = storage.Add(contact);
 
-        if(res)
+        if(res.Id != -1)
         {
-            return Created();
+            return Created(nameof(Create), res);
         }
 
         return Conflict();
