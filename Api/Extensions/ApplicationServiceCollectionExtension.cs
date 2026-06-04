@@ -1,4 +1,7 @@
+using Api.DataContext;
+using Api.Seed;
 using Api.Storage;
+using Microsoft.EntityFrameworkCore;
 
 namespace Api.Extensions;
 public static class ApplicationServiceCollectionExtension
@@ -12,8 +15,9 @@ public static class ApplicationServiceCollectionExtension
         services.AddControllers();
 
         string connectionString = configuration.GetValue<string>("ConnectionStrings:SqliteConnection");
-        services.AddSingleton<IStorage>(new SqLiteStorage(connectionString));
-
+        services.AddDbContext<SqliteDbContext>(opt => opt.UseSqlite(connectionString));
+        services.AddScoped<IStorage, SqliteEfStorage>();
+        services.AddScoped<IInitializer, SqliteEfFakerInitializer>();
 
         services.AddCors(opt => opt.AddPolicy("CorsPolicy", policy =>
         {
