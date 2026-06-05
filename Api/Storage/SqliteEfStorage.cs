@@ -19,7 +19,7 @@ public class SqliteEfStorage(SqliteDbContext context) : IStorage
         );
         context.SaveChanges();
 
-        return context.Contacts.Last();
+        return context.Contacts.Single(c => c.Email == contact.Email) ?? Contact.Unknown;
     }
 
     public List<Contact> GetAll() => context.Contacts.ToList();
