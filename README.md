@@ -5,7 +5,7 @@
 ## 🚀 Стек технологий
 
 *   **Backend:** C# 10+, **.NET 9.0**, ASP.NET Core Web API.
-*   **Database:** SQLite + Entity Framework Core 10.
+*   **Database:** SQLite + Entity Framework Core 9.
 *   **Frontend:** React, Bootstrap (пагинация и формы).
 *   **Библиотеки:** 
     *   `Bogus`: Генерация реалистичных тестовых данных.
