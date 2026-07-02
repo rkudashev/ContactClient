@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, {useState, useEffect} from "react";
 import TableContact from "./layout/TableContact/TableContact";
 import FormContact from "./layout/FormContact/FormContact";
+import { Route, Routes } from 'react-router-dom';
 
 const baseApiUrl = process.env.REACT_APP_API_URL;
 
@@ -34,17 +35,22 @@ const App = () => {
   
   return (
     <div className="container mt-5">
-      <div className="card">
-        <div className="card-header">
-          <h1>Список контактов</h1>
-        </div>
+      <Routes>
+        <Route path='/' element={
+          <div className="card">9
+            <div className="card-header">
+              <h1>Список контактов</h1>
+            </div>
 
-        <div className="card-body">
-          <TableContact contacts={contacts}
-                        deleteContact={deleteContact}/>
-          <FormContact addContact={addContact}/>
-        </div>
-      </div>
+            <div className="card-body">
+              <TableContact contacts={contacts}
+                            deleteContact={deleteContact}/>
+              <FormContact addContact={addContact}/>
+            </div>
+          </div>
+        } />
+        <Route path='contact/:id' element={<>Hello</>} />
+      </Routes>
     </div>
   );
 }
