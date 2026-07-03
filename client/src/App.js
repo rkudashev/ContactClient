@@ -38,7 +38,7 @@ const App = () => {
     <div className="container mt-5">
       <Routes>
         <Route path='/' element={
-          <div className="card">9
+          <div className="card">
             <div className="card-header">
               <h1>Список контактов</h1>
             </div>

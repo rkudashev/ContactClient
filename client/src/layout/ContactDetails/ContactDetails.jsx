@@ -22,6 +22,10 @@ const ContactDetails = () => {
         )
     }, [id, navigate]);
 
+    const goBack = () => {
+        navigate("/");
+    };
+
     return (
         <div className="container mt-5">
             <h2>Детали контакта</h2>
@@ -54,7 +58,7 @@ const ContactDetails = () => {
             </button>
 
             <button 
-                className="btn btn-secondary me-2" onClick={(e) => {}}>
+                className="btn btn-secondary me-2" onClick={(e) => { goBack() }}>
                 Назад
             </button>
         </div>
