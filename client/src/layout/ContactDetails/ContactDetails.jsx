@@ -26,6 +26,13 @@ const ContactDetails = () => {
         navigate("/");
     };
 
+    const deleteContact = (id) => {
+        const url = `${baseApiUrl}/ContactManagement/contacts`;
+        axios.delete(`${url}/${id}`);
+
+        goBack();
+    };
+
     return (
         <div className="container mt-5">
             <h2>Детали контакта</h2>
@@ -53,7 +60,7 @@ const ContactDetails = () => {
             </button>
 
             <button 
-                className="btn btn-danger me-2" onClick={(e) => {}}>
+                className="btn btn-danger me-2" onClick={(e) => {deleteContact(id);}}>
                 Удалить
             </button>
 
