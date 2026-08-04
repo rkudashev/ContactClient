@@ -33,6 +33,15 @@ const ContactDetails = () => {
         goBack();
     };
 
+    const updateContact = (id) => {
+        const url = `${baseApiUrl}/ContactManagement/contacts`;
+        axios.put(`${url}/${id}`, contact).then(
+            goBack()
+        ).catch(
+            console.log("Ошибка обновления")
+        );
+    };
+
     return (
         <div className="container mt-5">
             <h2>Детали контакта</h2>
@@ -42,7 +51,7 @@ const ContactDetails = () => {
                     className="form-control"
                     value={contact.name}
                     type="text"
-                    onChange={(e) => { }}
+                    onChange={(e) => { setContact({...contact, name: e.target.value}) }}
                 />
             </div>
             <div className="mb-3">
@@ -51,11 +60,11 @@ const ContactDetails = () => {
                     className="form-control"
                     value={contact.email}
                     type="email"
-                    onChange={(e) => { }}
+                    onChange={(e) => { setContact({...contact, email: e.target.value}) }}
                 />
             </div>
             <button 
-                className="btn btn-primary me-2" onClick={(e) => {}}>
+                className="btn btn-primary me-2" onClick={(e) => { updateContact(id); }}>
                 Обновить
             </button>
 
