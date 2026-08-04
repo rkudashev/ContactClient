@@ -28,11 +28,6 @@ const App = () => {
       res => setContacts([...contacts, res.data])
     );
   };
-
-  const deleteContact = (id) => {
-    axios.delete(`${url}/${id}`);
-    setContacts(contacts.filter(item => item.id !== id));
-  };
   
   return (
     <div className="container mt-5">
@@ -44,8 +39,7 @@ const App = () => {
             </div>
 
             <div className="card-body">
-              <TableContact contacts={contacts}
-                            deleteContact={deleteContact}/>
+              <TableContact contacts={contacts}/>
               <FormContact addContact={addContact}/>
             </div>
           </div>
