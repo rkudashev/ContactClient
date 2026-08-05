@@ -26,20 +26,18 @@ const ContactDetails = () => {
         navigate("/");
     };
 
-    const deleteContact = (id) => {
+    const deleteContact = async (id) => {
         const url = `${baseApiUrl}/ContactManagement/contacts`;
-        axios.delete(`${url}/${id}`);
+        await axios.delete(`${url}/${id}`);
 
         goBack();
     };
 
-    const updateContact = (id) => {
+    const updateContact = async (id) => {
         const url = `${baseApiUrl}/ContactManagement/contacts`;
-        axios.put(`${url}/${id}`, contact).then(
-            goBack()
-        ).catch(
-            console.log("Ошибка обновления")
-        );
+        await axios.put(`${url}/${id}`, contact);
+        goBack();
+        
     };
 
     return (
