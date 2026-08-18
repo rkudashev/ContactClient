@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace Api.Controllers;
 public class ContactManagementController : BaseController
 {
-    private readonly IStorage storage;
-    public ContactManagementController(IStorage storage)
+    private readonly IPaginationStorage storage;
+    public ContactManagementController(IPaginationStorage storage)
     {
         this.storage = storage;
     }
@@ -69,5 +69,21 @@ public class ContactManagementController : BaseController
         }
 
         return Conflict("Контакт с таким id не найден");
+    }
+
+    [HttpGet("contacts/page")]
+    public IActionResult GetContacts(int pageNumber = 1, int pageSize = 5)
+    {
+        var (contacts, total) = storage.GetContacts(pageNumber, pageSize);
+
+        var response = new
+        {
+            Contacts = contacts,
+            TotalCount = total,
+            CurrentPage = pageNumber,
+            PageSize = pageSize
+        };
+
+        return Ok(response);
     }
 }

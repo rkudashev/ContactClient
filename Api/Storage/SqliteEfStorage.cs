@@ -6,7 +6,7 @@ namespace Api.Storage;
 
 public class SqliteEfStorage(SqliteDbContext context) : IStorage
 {
-    private readonly SqliteDbContext context = context;
+    protected readonly SqliteDbContext context = context;
 
     public Contact Add(ContactDto contact)
     {
