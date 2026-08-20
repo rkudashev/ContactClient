@@ -37,8 +37,14 @@ const App = () => {
       email: contactEmail
     };
   
-    axios.post(url, item).then(
-      res => setContacts([...contacts, res.data])
+    axios.post(url, item);
+
+    const pageUrl = `${url}/page?pageNumber=${currentPage}&pageSize=${pageSize}`;
+    axios.get(pageUrl).then(
+      res => {
+        setContacts(res.data.contacts);
+        setTotalPages(Math.ceil(res.data.totalCount / pageSize));
+      }
     );
   };
   
