@@ -28,7 +28,9 @@ const ContactDetails = (props) => {
 
     const deleteContact = async (id) => {
         const url = `${baseApiUrl}/ContactManagement/contacts`;
-        await axios.delete(`${url}/${id}`);
+        await axios.delete(`${url}/${id}`).then(() => {
+            props.onUpdate();
+        });
 
         goBack();
     };
