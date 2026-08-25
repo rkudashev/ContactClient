@@ -4,7 +4,7 @@ import axios from "axios";
 
 const baseApiUrl = process.env.REACT_APP_API_URL;
 
-const ContactDetails = () => {
+const ContactDetails = (props) => {
     const [contact, setContact] = useState({name: "", email: ""});
     const {id} = useParams();
     const navigate = useNavigate();
@@ -35,7 +35,9 @@ const ContactDetails = () => {
 
     const updateContact = async (id) => {
         const url = `${baseApiUrl}/ContactManagement/contacts`;
-        await axios.put(`${url}/${id}`, contact);
+        await axios.put(`${url}/${id}`, contact).then(() => {
+            props.onUpdate();
+        });
         goBack();
         
     };
