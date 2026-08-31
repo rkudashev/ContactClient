@@ -2,11 +2,11 @@ import FormContact from "./FormContact";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const baseApiUrl = process.env.REACT_APP_API_URL;
+const baseApiUrl = window.config.apiUrl;
 
 const AppendContact = () => {
     const navigate = useNavigate();
-    const url = `${baseApiUrl}/ContactManagement/contacts`;
+    const url = `${baseApiUrl}/contacts`;
     
     const addContact = (contactName, contactEmail) => {
     

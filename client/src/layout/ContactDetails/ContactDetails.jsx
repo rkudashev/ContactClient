@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
-const baseApiUrl = process.env.REACT_APP_API_URL;
+const baseApiUrl = window.config.apiUrl;
 
 const ContactDetails = (props) => {
     const [contact, setContact] = useState({name: "", email: ""});
@@ -10,7 +10,7 @@ const ContactDetails = (props) => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const url = `${baseApiUrl}/ContactManagement/contacts/${id}`;
+        const url = `${baseApiUrl}/contacts/${id}`;
         axios.get(url).then(
             response => {
                 setContact(response.data);
@@ -27,7 +27,7 @@ const ContactDetails = (props) => {
     };
 
     const deleteContact = async (id) => {
-        const url = `${baseApiUrl}/ContactManagement/contacts`;
+        const url = `${baseApiUrl}/contacts`;
         await axios.delete(`${url}/${id}`).then(() => {
             props.onUpdate();
         });
@@ -36,7 +36,7 @@ const ContactDetails = (props) => {
     };
 
     const updateContact = async (id) => {
-        const url = `${baseApiUrl}/ContactManagement/contacts`;
+        const url = `${baseApiUrl}/contacts`;
         await axios.put(`${url}/${id}`, contact).then(() => {
             props.onUpdate();
         });
